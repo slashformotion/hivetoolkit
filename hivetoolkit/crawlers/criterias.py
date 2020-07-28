@@ -1,6 +1,6 @@
 import datetime
 
-class EmptyList(Exception):
+class EmptyListError(Exception):
     """ Raised if a list argument is empty"""
 
 class Criteria:
@@ -31,15 +31,15 @@ class CommentCriteria:
         Raises:
             TypeError: allowed_authors argument must be an instance of list
             TypeError: allowed_authors argument must contain only instances of str
-            EmptyList: allowed_authors mustn't be empty
+            EmptyListError: allowed_authors mustn't be empty
         """
         if not isinstance(allowed_authors, list):
             raise TypeError('allowed_authors argument must be an instance of list')
-        for author in allowed_authors:
-            if not isinstance(allowed_authors, str):
+        for allowed_author in allowed_authors:
+            if not isinstance(allowed_author, str):
                 raise TypeError('allowed_authors argument must contain only instances of str')
         if len(allowed_authors)==0:
-            raise EmptyList("allowed_authors agument mustn't be empty")
+            raise EmptyListError("allowed_authors agument mustn't be empty")
         self.allowed_authors = allowed_authors
     
     def setUnallowedAuthors(self, unallowed_authors):
@@ -51,14 +51,33 @@ class CommentCriteria:
         Raises:
             TypeError: unallowed_authors argument must be an instance of list
             TypeError: unallowed_authors argument must contain only instances of str
-            EmptyList: unallowed_authors mustn't be empty
+            EmptyListError: unallowed_authors mustn't be empty
         """
         if not isinstance(unallowed_authors, list):
             raise TypeError('unallowed_authors argument must be an instance of list')
-        for author in unallowed_authors:
-            if not isinstance(unallowed_authors, str):
+        for unallowed_author in unallowed_authors:
+            if not isinstance(unallowed_author, str):
                 raise TypeError('unallowed_authors argument must contain only instances of str')
         if len(unallowed_authors)==0:
-            raise EmptyList("unallowed_authors agument mustn't be empty")
+            raise EmptyListError("unallowed_authors agument mustn't be empty")
         self.unallowed_authors = unallowed_authors
 
+    def setAllowedTags(self, allowed_tags):
+        """set unallowed tags filter
+
+        Args:
+            allowed_tags (list(str)): allowed tags
+
+        Raises:
+            TypeError: allowed_tags argument must be an instance of list
+            TypeError: allowed_tags argument must contain only instances of str
+            EmptyListError: allowed_tags mustn't be empty
+        """
+        if not isinstance(allowed_tags, list):
+            raise TypeError('allowed_tags argument must be an instance of list')
+        for allowed_tag in allowed_tags:
+            if not isinstance(allowed_tag, str):
+                raise TypeError('unallowed_authors argument must contain only instances of str')
+        if allowed_tag == []:
+            raise EmptyListError("allowed argument mustn't be an empty list")
+        self.allowed_tags = allowed_tags

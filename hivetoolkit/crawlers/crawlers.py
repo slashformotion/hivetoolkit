@@ -2,16 +2,17 @@ from .. import utils
 from beem.blockchain import Blockchain
 from beem.comment import Comment
 from .criterias import CommentCriteria
+import json
 
 class Crawler:
 
     def __init__(self, name, blockchain):
         self.__name = name
         if blockchain == 'hive':
-            self.__blockchain = Blockchain(blockchain_instance=utils.HIVE_INSTANCE)
+            self.__blockchain = Blockchain(blockchain_instance=utils.blockchains.HIVE_INSTANCE)
             pass
         elif blockchain == 'steem':
-            self.__blockchain = Blockchain(blockchain_instance=utils.STEEM_INSTANCE)
+            self.__blockchain = Blockchain(blockchain_instance=utils.blockchains.STEEM_INSTANCE)
         else:
             raise NotImplementedError
 
@@ -42,6 +43,7 @@ class CommentCrawler(Crawler):
                 
                 # create Comment object
                 comment = Comment(authorperm)
+                
 
                 ## FILTERING ##
 
@@ -54,6 +56,14 @@ class CommentCrawler(Crawler):
                 if hasattr(criteria, unallowed_authors):
                     if comment.author in criteria.unallowed_authors:
                         continue
+                
+                # allowed tags filter
+                if hasattr(criteria, allowed_tags):
+                    # get tags
+                    tags = json.loads(comment_json.get('json_metadata')).get('tags', [])
+                    if utils.intersection(criteria.allowed_tags, tags) == []:
+                        continue
+
         else:
-            print('Timeframe was not set in criteria')
+            print('Timeframe was not set in criteria, direct streaming used')
     
