@@ -1,1 +1,2 @@
-from .blockchains import HIVE_INSTANCE, STEEM_INSTANCE
+
+from .utils import intersection
