@@ -31,7 +31,7 @@ crawler = CommentCrawler(blockchain='hive')
 
 print('creating criteria')
 criteria = CommentCriteria()
-criteria.setUnallowedAuthors(['theophile.roos'])
+criteria.setUnallowedAuthors(['slashformotion'])
 criteria.setTimeframe(start, stop)
 
 print('crawling through the blockchain')
