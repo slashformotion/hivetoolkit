@@ -4,8 +4,10 @@ class EmptyListError(Exception):
     """ Raised if a list argument is empty"""
 
 class Criteria:
+    def __init__(self):
+        pass
     
-    def setTimeFrame(self, start, stop):
+    def setTimeframe(self, start, stop):
         if isinstance(start, datetime.datetime):
             self.start = start
         else:
@@ -17,8 +19,9 @@ class Criteria:
             raise TypeError('stop argument must be an instance of datetime.datetime')
         
 
-class CommentCriteria:
+class CommentCriteria(Criteria):
     def __init__(self, json_config=None):
+        super().__init__()
         # TODO: implement json config
         pass
 
