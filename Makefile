@@ -3,3 +3,6 @@ test:
 
 testv:
 	python -m unittest -v discover  tests
+
+black:
+	black .
