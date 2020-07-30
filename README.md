@@ -1,4 +1,4 @@
-# hivetools
+# hivetoolkit
 [![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
 
 Hivetools is a set of python writen tools to work with the Hive (and steem blockchain)
