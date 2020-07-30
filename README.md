@@ -1,5 +1,7 @@
 # hivetoolkit
 ![PyPI](https://img.shields.io/pypi/v/hivetoolkit?label=pypi)
+---
+
 Hivetools is a set of python writen tools to work with the Hive (and steem blockchain)
 
 
