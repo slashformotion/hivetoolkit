@@ -16,6 +16,7 @@ print("creating criteria")
 criteria = CommentCriteria()
 criteria.setUnallowedAuthors(["theophile.roos"])
 criteria.setTimeframe(start, stop)
+criteria.setUnallowedTags([])
 
 print("crawling through the blockchain")
 for index, c in enumerate(crawler.run(criteria=criteria)):

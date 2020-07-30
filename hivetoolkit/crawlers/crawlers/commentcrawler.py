@@ -1,22 +1,7 @@
-from ..utils import blockchains
-from beem.blockchain import Blockchain
-from beem.comment import Comment
-from .criterias import CommentCriteria
-import json
+from beem.comment import Comment, ContentDoesNotExistsException, construct_authorperm
 
-
-class Crawler:
-    def __init__(self, name, blockchain):
-        self.__name = name
-        if blockchain == "hive":
-            self._blockchain = Blockchain(blockchain_instance=blockchains.HIVE_INSTANCE)
-            pass
-        elif blockchain == "steem":
-            self._blockchain = Blockchain(
-                blockchain_instance=blockchains.STEEM_INSTANCE
-            )
-        else:
-            raise NotImplementedError
+from ..criterias import CommentCriteria
+from .basecrawler import Crawler
 
 
 class CommentCrawler(Crawler):
@@ -43,12 +28,16 @@ class CommentCrawler(Crawler):
             ):
 
                 # create authorperm
-                authorperm = "@{}/{}".format(
+                authorperm = construct_authorperm(
                     comment_json.get("author"), comment_json.get("permlink")
                 )
 
-                # create Comment object
-                comment = Comment(authorperm)
+                # try to create Comment object
+                try:
+                    comment = Comment(authorperm)
+                except ContentDoesNotExistsException as e:
+                    # authorperm doen't exists
+                    continue
 
                 ## FILTERING ##
 

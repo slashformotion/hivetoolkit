@@ -12,6 +12,8 @@ class SuperFixture:
             datetime.datetime.now(),
             datetime.timedelta(hours=1),
             pathlib.Path("."),
+            ["voila", 1],
+            {"truc": "r"},
         ]  # string, ints, floats, datetime, timedelta
 
     def getAllBut(self, type_not_allowed):
