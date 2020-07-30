@@ -15,4 +15,14 @@ setup(
     description='A set of tools to work with the Hive (or Steem) blockchain',
     packages=['hivetoolkit'],
     long_description=long_description,
-    long_description_content_type='text/markdown')
+    long_description_content_type='text/markdown',
+    classifiers=[
+        "Development Status :: 1 - Planning",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Topic :: Office/Business :: Financial"        
+    ])
