@@ -2,6 +2,7 @@ from ...utils import blockchains
 from beem.blockchain import Blockchain
 import datetime
 
+
 class Crawler:
     def __init__(self, name, blockchain):
         self.__name = name
@@ -33,11 +34,11 @@ class Crawler:
                 yield op_json
 
         else:
-            print("Timeframe was not set in criteria, direct streaming used")
+            print("[DEBUG] Timeframe was not set in criteria, direct streaming used")
             # looping trough generator
             for op_json in self._blockchain.stream(opNames=opNames):
                 yield op_json
-    
+
     def set_timeframe(self, start, stop):
         if isinstance(start, datetime.datetime):
             self.start = start
