@@ -78,12 +78,18 @@ class CommentCrawler(Crawler):
             if comment.author in criteria.rules.get("unallowed_authors"):
                 return False
 
+        # get tags
+        tags = json.loads(comment_json.get("json_metadata")).get("tags", [])
         # allowed tags filter
         if "allowed_tags" in criteria.rules_names:
-            # get tags
             allowed_tags = criteria.rules.get("allowed_tags")
-            tags = json.loads(comment_json.get("json_metadata")).get("tags", [])
             if utils.intersection(allowed_tags, tags) == []:
+                return False
+
+        # unallowed tags filter
+        if "unallowed_tags" in criteria.rules_names:
+            unallowed_tags = criteria.rules.get("unallowed_tags")
+            if utils.intersection(unallowed_tags, tags) == []:
                 return False
 
         return True

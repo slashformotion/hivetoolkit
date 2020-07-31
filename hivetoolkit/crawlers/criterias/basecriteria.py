@@ -5,9 +5,7 @@ from ...utils import arguments
 
 
 class BaseCriteria:
-    RULES = {
-        'empty_rule': {'type': list, 'sub_type':str} 
-        }
+    RULES = {"empty_rule": {"type": list, "sub_type": str}}
 
     def __init__(self, config_path=None):
         self.__rules = dict()
@@ -17,7 +15,7 @@ class BaseCriteria:
     def set_rule(self, rule_name, value):
         if not rule_name in self.RULES.keys():
             raise NotImplementedError(f"The rule '{rule_name}' doesn't exists.")
-        
+
         # unpack rule
         rule = self.RULES[rule_name]
         try:
