@@ -10,7 +10,6 @@ class CommentCrawler(Crawler):
     def __init__(self, blockchain="hive"):
         super().__init__(name="Comment crawler", blockchain=blockchain)
 
-
     def run(self, criteria):
         if not isinstance(criteria, CommentCriteria):
             raise TypeError("criteria argument must be an instance of CommentCriteria")
@@ -33,8 +32,6 @@ class CommentCrawler(Crawler):
             if self._filter(comment, criteria):
                 # filters passed
                 yield comment
-
-    
 
     def _filter(self, comment, criteria):
         comment_json = comment.json()
