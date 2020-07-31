@@ -2,7 +2,7 @@ test:
 	python -m unittest discover  tests
 
 testv:
-	python -m unittest discover tests -v
+	python -m unittest discover tests -v -f
 
 black:
 	black .
@@ -23,3 +23,6 @@ clean-build:
 	rm --force --recursive build/
 	rm --force --recursive dist/
 	rm --force --recursive *.egg-info
+
+todo:
+	@code TODO.todo
