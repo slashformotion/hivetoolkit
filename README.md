@@ -4,14 +4,18 @@
 
 Hivetools is a set of python writen tools to work with the Hive (and steem blockchain)
 
+BE CAREFULL, THIS PACKAGE IS IN PRE-ALPHA PHASE. IT MAY NOT WORK.
 
-### Dependencies
+### Requirements
 
 - beem => 0.24.5
+- Python >= 3.6.x
 
 ### Installation
 
-perhaps a bit early for that
+```
+pip install hivetoolkit
+```
 
 ## Starting
 
@@ -45,7 +49,7 @@ for c in crawler.run(criteria=criteria):
 
 ## Versions
 
-
+THIS PACKAGE IS IN PRE-ALPHA PHASE
 
 ## License
 

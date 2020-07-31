@@ -1,7 +1,7 @@
 from beem.amount import Amount
 
 
-def amount_to_dict(amount):  # TODO: inplement testing
+def amount_to_dict(amount):  # TODO: implement testing
     """return an amount in a dict form
 
     Args:

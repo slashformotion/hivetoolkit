@@ -1,25 +1,41 @@
 from beem.comment import Comment, ContentDoesNotExistsException, construct_authorperm
-
+import datetime
 from ..criterias import CommentCriteria
 from .basecrawler import Crawler
+import json
+from ... import utils
 
 
 class CommentCrawler(Crawler):
     def __init__(self, blockchain="hive"):
         super().__init__(name="Comment crawler", blockchain=blockchain)
 
+    def set_timeframe(self, start, stop):
+        if isinstance(start, datetime.datetime):
+            self.start = start
+        else:
+            raise TypeError("start argument must be an instance of datetime.datetime")
+
+        if isinstance(stop, datetime.datetime):
+            self.stop = stop
+        else:
+            raise TypeError("stop argument must be an instance of datetime.datetime")
+
+        if start >= stop:
+            raise RuntimeError("stop({}) < start({})".format(stop, start))
+
     def run(self, criteria):
         if not isinstance(criteria, CommentCriteria):
             raise TypeError("criteria argument must be an instance of CommentCriteria")
 
-        if hasattr(criteria, "start") and hasattr(criteria, "stop"):
+        if hasattr(self, "start") and hasattr(self, "stop"):
 
             # get starting block id
             start_block_id = self._blockchain.get_estimated_block_num(
-                criteria.start, accurate=True
+                self.start, accurate=True
             )
             stop_block_id = self._blockchain.get_estimated_block_num(
-                criteria.stop, accurate=True
+                self.stop, accurate=True
             )
 
             # looping trough generator
@@ -41,31 +57,33 @@ class CommentCrawler(Crawler):
 
                 ## FILTERING ##
 
-                if self.filter(comment, criteria):
+                if self._filter(comment, criteria):
                     # filters passed
                     yield comment
 
         else:
             print("Timeframe was not set in criteria, direct streaming used")
 
-    def filter(self, comment, criteria):
+    def _filter(self, comment, criteria):
         comment_json = comment.json()
+        rules = criteria.rules
 
         # allowed authors filter
-        if hasattr(criteria, "allowed_authors"):
-            if not comment.author in criteria.allowed_authors:
+        if "allowed_authors" in criteria.rules_names:
+            if not comment.author in criteria.rules.get("allowed_authors"):
                 return False
 
         # unallowed authors filter
-        if hasattr(criteria, "unallowed_authors"):
-            if comment.author in criteria.unallowed_authors:
+        if "unallowed_authors" in criteria.rules_names:
+            if comment.author in criteria.rules.get("unallowed_authors"):
                 return False
 
         # allowed tags filter
-        if hasattr(criteria, "allowed_tags"):
+        if "allowed_tags" in criteria.rules_names:
             # get tags
+            allowed_tags = criteria.rules.get("allowed_tags")
             tags = json.loads(comment_json.get("json_metadata")).get("tags", [])
-            if utils.intersection(criteria.allowed_tags, tags) == []:
+            if utils.intersection(allowed_tags, tags) == []:
                 return False
 
         return True

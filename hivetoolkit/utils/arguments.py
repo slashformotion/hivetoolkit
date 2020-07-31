@@ -1,30 +1,25 @@
 """ argument's type checking tools """
 
 
-def checkList(arg_list, name_arg, type_inside_arg=str):
-    """Check if arg_list is an instance of list and if every variable inside arg_list is an instance of type_inside_arg
+def check_arg(arg, arg_type, arg_name, sub_type=None):
 
-    Args:
-        arg_list (list(type_inside_arg)): arg to check
-        name_arg (str): name of the argument, asked to complete Error explanation
-        type_inside_arg (type, optional): supposed type of the variables inside arg_list. Defaults to str.
+    str_arg_type = arg_type.__name__
+    if sub_type != None:
+        str_sub_type = sub_type.__name__
 
-    Raises:
-        TypeError: IF NOT type(arg_list) IS list
-        TypeError: IF NOT type(arg_list[x]) IS type_inside_arg
-    """
-    type_arg = list
-    str_type_arg = type_arg.__name__
-    str_type_inside_arg = type_inside_arg.__name__
-
-    if not isinstance(arg_list, type_arg):
+    if not isinstance(arg, arg_type):
         raise TypeError(
-            "{} argument must be an instance of {}".format(name_arg, str_type_arg)
+            "{} argument must be an instance of {}".format(arg_name, str_arg_type)
         )
-    for elem in arg_list:
-        if not isinstance(elem, type_inside_arg):
-            raise TypeError(
-                "{} argument must contain only instances of {}".format(
-                    name_arg, str_type_inside_arg
+    try:
+        iter(arg)
+    except TypeError:
+        pass
+    else:
+        for elem in arg:
+            if not isinstance(elem, sub_type):
+                raise TypeError(
+                    "{} argument must contain only instances of {}".format(
+                        arg_name, str_sub_type
+                    )
                 )
-            )
