@@ -10,59 +10,31 @@ class CommentCrawler(Crawler):
     def __init__(self, blockchain="hive"):
         super().__init__(name="Comment crawler", blockchain=blockchain)
 
-    def set_timeframe(self, start, stop):
-        if isinstance(start, datetime.datetime):
-            self.start = start
-        else:
-            raise TypeError("start argument must be an instance of datetime.datetime")
-
-        if isinstance(stop, datetime.datetime):
-            self.stop = stop
-        else:
-            raise TypeError("stop argument must be an instance of datetime.datetime")
-
-        if start >= stop:
-            raise RuntimeError("stop({}) < start({})".format(stop, start))
 
     def run(self, criteria):
         if not isinstance(criteria, CommentCriteria):
             raise TypeError("criteria argument must be an instance of CommentCriteria")
 
-        if hasattr(self, "start") and hasattr(self, "stop"):
-
-            # get starting block id
-            start_block_id = self._blockchain.get_estimated_block_num(
-                self.start, accurate=True
-            )
-            stop_block_id = self._blockchain.get_estimated_block_num(
-                self.stop, accurate=True
+        for comment_json in self._stream(opNames=["comment"]):
+            # create authorperm
+            authorperm = construct_authorperm(
+                comment_json.get("author"), comment_json.get("permlink")
             )
 
-            # looping trough generator
-            for comment_json in self._blockchain.stream(
-                opNames=["comment"], start=start_block_id, stop=stop_block_id
-            ):
+            # try to create Comment object
+            try:
+                comment = Comment(authorperm)
+            except ContentDoesNotExistsException as e:
+                # authorperm doen't exists
+                continue
 
-                # create authorperm
-                authorperm = construct_authorperm(
-                    comment_json.get("author"), comment_json.get("permlink")
-                )
+            ## FILTERING ##
 
-                # try to create Comment object
-                try:
-                    comment = Comment(authorperm)
-                except ContentDoesNotExistsException as e:
-                    # authorperm doen't exists
-                    continue
+            if self._filter(comment, criteria):
+                # filters passed
+                yield comment
 
-                ## FILTERING ##
-
-                if self._filter(comment, criteria):
-                    # filters passed
-                    yield comment
-
-        else:
-            print("Timeframe was not set in criteria, direct streaming used")
+    
 
     def _filter(self, comment, criteria):
         comment_json = comment.json()
