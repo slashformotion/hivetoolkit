@@ -58,7 +58,7 @@ class CommentCrawler(Crawler):
         # unallowed tags filter
         if "unallowed_tags" in criteria.rules_names:
             unallowed_tags = criteria.rules.get("unallowed_tags")
-            if utils.intersection(unallowed_tags, tags) == []:
+            if utils.intersection(unallowed_tags, tags) != []:
                 return False
 
         return True
