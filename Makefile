@@ -2,6 +2,9 @@ test:
 	python -m unittest discover  tests
 
 testv:
+	python -m unittest discover tests -v 
+
+testvf:
 	python -m unittest discover tests -v -f
 
 black:
