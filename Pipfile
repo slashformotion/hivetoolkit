@@ -5,10 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 ipykernel='*'
+twine = "*"
 
 [packages]
 beem = "*"
-twine = "*"
+
 
 
 [requires]
