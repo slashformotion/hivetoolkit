@@ -1,5 +1,5 @@
 # hivetoolkit
-![PyPI](https://img.shields.io/pypi/v/hivetoolkit?label=pypi)
+![PyPI](https://img.shields.io/pypi/v/hivetoolkit?label=pypi) ![Travis (.org) branch](https://img.shields.io/travis/slashformotion/hivetoolkit/master?label=build(master)) ![Travis (.org) branch](https://img.shields.io/travis/slashformotion/hivetoolkit/testing?label=build(testing)) ![Travis (.org) branch](https://img.shields.io/travis/slashformotion/hivetoolkit/dev?label=build(dev))
 ---
 
 Hivetools is a set of python writen tools to work with the Hive (and steem blockchain)
