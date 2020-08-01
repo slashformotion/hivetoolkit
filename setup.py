@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-__version__ = "0.0.1dev2"
+__version__ = "0.0.2"
 
 setup(
     name="hivetoolkit",
@@ -14,7 +14,7 @@ setup(
     author_email="slashformotion@protonmail.com",
     description="A set of tools to work with the Hive (or Steem) blockchain",
     packages=find_packages(exclude=("tests",)),
-    install_requires=['beem'],
+    install_requires=["beem"],
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
