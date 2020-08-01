@@ -1,17 +1,26 @@
 import unittest
-import datetime
 from beem.comment import Comment
 from hivetoolkit.crawlers.criterias import CommentCriteria
 
 
 class test_CommentCrawler(unittest.TestCase):
     def _makeOne(self, *args, **kw):
-        return self._getTargetClass()(*args, **kw)
+        return self._get_target_class()(*args, **kw)
 
-    def _getTargetClass(self):
+    def _get_target_class(self):
         from hivetoolkit.crawlers.crawlers import CommentCrawler
 
         return CommentCrawler
+
+    def test_run(self):
+        criteria = CommentCriteria()
+        crawler = self._makeOne()
+        generator = crawler.run(criteria)
+        for index, comment in enumerate(generator):
+            if index >= 3:
+                break
+            with self.subTest(comment=comment):
+                self.assertIsInstance(comment, Comment)
 
     def test__filter_unallowed_authors(self):
 
