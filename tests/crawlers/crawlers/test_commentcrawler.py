@@ -37,7 +37,7 @@ class test_CommentCrawler(unittest.TestCase):
 
         for comment in comments:
             with self.subTest(comment=comment):
-                self.assertFalse(crawler._filter(comment, criteria))
+                self.assertTrue(crawler._filter(comment, criteria))
 
         ## return use case
         crawler = self._makeOne(blockchain="hive")
