@@ -21,8 +21,6 @@ if __name__ == "__main__":
     criteria.set_rule("unallowed_authors", ["slashformotion"])
     criteria.set_rule("allowed_tags", ["fr"])
 
-    
-
     print("crawling through the blockchain")
     for index, c in enumerate(crawler.run(criteria=criteria)):
         print("    {}: {}".format(index, c.authorperm))
