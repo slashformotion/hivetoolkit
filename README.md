@@ -61,7 +61,6 @@ Fork if you want !
 
 ## Versions
 
-<<<<<<< HEAD
 - **0.0.2**: `CommentCrawler` and `CommentCriteria` are working
 
 ## RoadMap
@@ -69,9 +68,6 @@ Fork if you want !
 - get the documentation working...(kind of a big deal, so this is priority ***n1***)
 - Implementation of a specific crawler and criteria for Votes, Proposals, Transferts, CustomJsons, Vestings
 - Implementation of integration tests
-=======
-THIS PACKAGE IS IN PRE-ALPHA PHASE
->>>>>>> 12c706ce19e904a8120cf1c1e719a600a2039b2a
 
 ## License
 
