@@ -1,4 +1,4 @@
-# hivetoolkit
+# hivetoolkit  ***DISCONTINUED !!***
 ![PyPI](https://img.shields.io/pypi/v/hivetoolkit?label=pypi)
 ---
 
